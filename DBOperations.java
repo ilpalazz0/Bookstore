@@ -77,7 +77,7 @@ public class DBOperations {
     }
 
     public void insertAuthor(int author_id, String author_fname, String author_lname) {
-        String sql = "INSERT INTO books (author_id, author_fname, author_lname) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO authors (author_id, author_fname, author_lname) VALUES (?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, author_id);
@@ -95,8 +95,8 @@ public class DBOperations {
     }
 
     public void placeOrder(int order_id, int payment, int customer_id, int book_id) {
-        String checkStockSql = "SELECT stock FROM books WHERE id = ?";
-        String updateStockSql = "UPDATE books SET stock = stock - 1 WHERE id = ?";
+        String checkStockSql = "SELECT stock FROM books WHERE book_id=?";
+        String updateStockSql = "UPDATE books SET stock = stock - 1 WHERE book_id= ?";
         String insertOrderSql = "INSERT INTO orders (order_id, payment, customer_id, book_id) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = getConnection()) {
